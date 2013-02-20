@@ -3,6 +3,10 @@ layout: blogpost
 title: "First look into Apache Hadoop and Oracle Coherence"
 date: 2013-02-20 14:37
 comments: true
+tags:
+- Big Data
+- Hadoop
+- Oracle Coherence
 categories: 
 ---
 With all the Big Data hype buzzing around in the industry, my curiosity about it has been growing steadily. I have started to look into two products in more detail to find out what the all the fuzz is about, and whether it would make sense to invest some time in it.
@@ -10,6 +14,7 @@ With all the Big Data hype buzzing around in the industry, my curiosity about it
 Because of my Java/Oracle background, I choose to check out two products:
 * **Apache Hadoop**: popular open-source project enabling MapReduce algorithms to be run easily on COTS hardware
 * **Oracle Coherence**: commercial data-grid product with seamless data distribution and MapReduce functionality which I have encountered at multiple Oracle-minded clients
+
 
 ### First thoughts on Hadoop
 
