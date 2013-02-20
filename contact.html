@@ -40,30 +40,40 @@ title: CONTACT // Savit Consultancy
 			</p>
 	    -->	
 		</aside>
+
+
 		
 		<section class="grid col-three-quarters mq2-col-two-thirds mq3-col-full">
+      <!--<iframe id="hidden_iframe" name="hidden_iframe" onload="if(submitted) {window.location='url-of-thank-you-page';}" style="display: none;"></iframe>-->
+
 			<h2>Drop us a message</h2>
 			<!--<p class="warning">Don't forget to put your own email address in the php file!</p>-->
-			
-			<form id="contact_form" class="contact_form" action="contact.php" method="post" name="contact_form">	
+
+      <form action="https://docs.google.com/forms/d/1HPozwFQOv0s8wsW6jQbuhtJLmTKFurWyfL7Eq2xkMUA/formResponse" method="POST" id="contact_form" class="contact_form" target="_self" onsubmit="">
 				<ul>
 					<li>
 						<label for="name">Your name:</label>
-						<input type="text" name="name" id="name" required class="required" >
+            <input type="text" name="entry.670216569" value="" required class="required" id="entry_670216569" dir="auto" aria-required="true">
 					</li>
 					<li>
 						<label for="email">Email:</label>
-						<input type="email" name="email" id="email" required placeholder="JohnDoe@gmail.com" class="required email">
+            <input type="email" name="entry.1152636479" required placeholder="JohnDoe@gmail.com" value="" class="required email" id="entry_1152636479" dir="auto">
 					</li>	
 					<li>
 						<label for="message">Message:</label>
-						<textarea name="message" id="message" cols="100" rows="6" required  class="required" ></textarea>
+            <textarea name="entry.1975769500" rows="6" cols="100" required class="required" id="entry_1975769500" dir="auto" aria-required="true"></textarea>
 					</li>
 					<li>
 						<button type="submit" id="submit" name="submit" class="button fright">Send it</button>
 					</li>	
 				</ul>			
-			</form>
+
+      <input type="hidden" name="draftResponse" value="[]
+      ">
+      <input type="hidden" name="pageHistory" value="0">
+
+      </form>
+
 		</section>	
 		
 	</div> <!--main-->
