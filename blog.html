@@ -1,8 +1,17 @@
 ---
-layout: blog
+layout: default
 title: BLOG // Savit Consultancy
 ---
-  {% for post in site.posts %}
+	<div class="blog-page main grid-wrap">
+
+		<header class="grid col-full">
+			<hr>
+			<p class="fleft">Blog</p>
+		</header>
+		
+				
+		<section class="grid col-three-quarters mq2-col-two-thirds mq3-col-full">
+    {% for post in site.posts %}
 			<article class="post">
 				<h2><a href="{{post.url}}" class="post-title">{{ post.title }}</a></h2>
 				<div class="meta">
@@ -15,4 +24,60 @@ title: BLOG // Savit Consultancy
 					<a href="{{post.url}}" class="more-link">Continue reading…</a>
 				</footer>
 			</article>			
-  {% endfor %}
+      {% endfor %}
+					
+			<ul class="page-numbers">
+				<li><a href="#">Prev</a></li>
+				<li><a href="#" class="current">1</a></li>
+				<li><a href="#">2</a></li>
+				<li><a href="#">3</a></li>
+				<li><a href="#">4</a></li>
+				<li><a href="#">Next</a></li>
+			</ul>
+		
+		</section>
+
+		<aside class="grid col-one-quarter mq2-col-one-third mq3-col-full blog-sidebar">
+				
+			<div class="widget">
+				<input id="search" type="search" name="search" value="Type and hit enter to search" >
+			</div>
+			
+			<div class="widget">
+			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet enim.</p>
+			</div>
+			
+			<div class="widget">
+			<h2>Popular Posts</h2>
+			<ul>
+				<li><a href="#" title="">Nullam porttitor elementum ligula</a></li>
+				<li><a href="#" title="">Vestibulum interdum</a></li>	
+				<li><a href="#" title="">Quisque venenatis ante sit amet dolor</a></li>		
+				<li><a href="#" title="">Aliquam adipiscing libero vitae leo</a></li>		
+				<li><a href="#" title="">Sed accumsan quam ac tellus</a></li>	
+			</ul>
+			</div>
+			
+			<div class="widget">
+			<h2>Categories</h2>
+			<ul>
+			 	<li><a href="http://">Design (99+)</a></li>
+				<li><a href="http://">Web (53)</a></li>
+				<li><a href="http://">Other (12)</a></li>
+				<li><a href="http://">Weird (4)</a></li>
+			</ul>
+			</div>
+		
+			<div class="widget">
+			<h2>Meta</h2>
+			<ul>
+				<li><a href="">Entries (RSS)</a></li>
+				<li><a href="">Comments (RSS)</a></li>
+			</ul>
+			</div>
+		</aside>
+
+		
+		
+		
+	</div> <!--main-->
