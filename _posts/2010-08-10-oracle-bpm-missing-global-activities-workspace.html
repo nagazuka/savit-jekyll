@@ -1,0 +1,26 @@
+---
+layout: post
+title: Oracle BPM 10gR3 - Missing Global Activities In BPM Workspace
+tags:
+- 10g
+- fusion middleware
+- oracle bpm
+- Oracle BPM
+- tips and tricks
+status: publish
+type: post
+published: true
+meta:
+  tumblr_nagazuka_permalink: http://nagazuka.nl/post/931905552/oracle-bpm-missing-global-activities-workspace
+  tumblr_nagazuka_id: '931905552'
+  _edit_last: '1'
+---
+Using JMS with Oracle BPM can lead to quirky behaviour. For instance, if the Applications box in the Workspace is suddenly avoid of Global Activities, a possible cause for this is strangely enough the JMS configuration of your BPM process.
+
+<a href="http://www.nagazuka.nl/wp-content/uploads/2011/07/tumblr_l6xu27LPvg1qa552a.png"><img class="alignnone size-full wp-image-53" title="Oracle BPM Missing global activities" src="http://www.nagazuka.nl/wp-content/uploads/2011/07/tumblr_l6xu27LPvg1qa552a.png" alt="" width="194" height="157" /></a>
+
+I have seen this happen even when none of the Global Activities listed in Applications have anything to do with JMS, but rather initiate a process through screenflows or files on disk. After a restart, the activities were no longer listed in BPM Workspace. In that case check the Log Viewer for similar errors:
+<blockquote>Fuego.connector.ConnectorException: Connector [JMSConfigurationMS2Queue1:null:JMS] caused an exception when getting a resource of type [5].
+
+Detail:Connector [JMSConfigurationMS2Queue1:null:JMS] caused an exception when getting a resource of type [5].</blockquote>
+Check the External Resources in the Process Administrator or in Studio to verify the JMS servers. After restarting the Applications should return in the BPM Workspace.

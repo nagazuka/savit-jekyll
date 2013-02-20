@@ -1,0 +1,44 @@
+---
+layout: post
+title: Oracle Service Bus 10gR3 - Troubleshooting BEA-382016
+tags:
+- alsb
+- fusion middleware
+- oracle service bus
+- Oracle Service Bus
+- osb
+- tips and tricks
+status: publish
+type: post
+published: true
+meta:
+  tumblr_nagazuka_permalink: http://nagazuka.nl/post/927021776/oracle-service-bus-troubleshooting
+  tumblr_nagazuka_id: '927021776'
+  _edit_last: '1'
+---
+Recently I have been running into the same error while developing Proxy Services for Oracle Service Bus in Workspace Studio. I use a lot of XQuery transformations in message processing actions, such as Insert to insert XML into the body of requests and responses for SOAP Web Services. In Workspace Studio I defined the XQuery transformation, XPath location of the insert and the variable to manipulate.
+
+However, when exporting the Proxy Service from Workspace Studio to an Oracle Service Bus server, the following error sometimes occurs when invoking the service in the Service Bus Console:
+<blockquote><strong>    The invocation resulted in an error:</strong><strong>    </strong></blockquote>
+An extremely uninformative message error, saying “I don’t know what happened, you figure it out!” :-) When diving into the server logs, or in the command prompt if you work locally, a more descriptive message appears:
+<blockquote><strong>    &lt;BEA-382016&gt; &lt;Failed to instantiate router for service ProxyService MessageBroker/ProxyServices/HttpProxy: java.lang.NullPointerException</strong><strong>
+</strong><strong>    java.lang.NullPointerException</strong><strong>
+</strong><strong>    at stages.transform.InsertFactory.getStageRuntime (InsertFactory.java:89)</strong><strong>
+</strong><strong>    at com.bea.wli.sb.stages.StageMetadataImpl$DefaultStageFactory.getStageRuntime (StageMetadataImpl.java:239)</strong><strong>
+</strong><strong>    at com.bea.wli.sb.stages.impl.RuntimeBuilderImpl.buildRuntime (RuntimeBuilderImpl.java:92)</strong>
+<strong>
+</strong></blockquote>
+Alright, the dreadful NullPointerException occurs in some part of the Oracle Service Bus internals. It looks like something is wrong in the Proxy Service that has been deployed, that the server can not transform in to a runtime version of the Proxy Service. I subsequently eliminated each step in my Proxy Service in the <strong>Service Bus Console</strong>, until the error stopped occurring.
+
+A message processing action appeared to be the cause of the problem, because in the Service Bus Console, the XPath location of the Insert action is listed as <em>undefined</em>, while the Workspace Studio version really has the XPath location filled with something meaningful.
+
+<a href="http://www.nagazuka.nl/wp-content/uploads/2011/07/tumblr_l6xut5aY001qa552a.png"><img class="alignnone size-full wp-image-54" title="OSB Xquery undefined" src="http://www.nagazuka.nl/wp-content/uploads/2011/07/tumblr_l6xut5aY001qa552a.png" alt="" width="464" height="212" /></a>
+
+This is a strange bug in Workspace Studio, where the .proxy file is not written in a way that the Server does not understand. Quick Fix: Updating the XPath in the Service Bus Console fixed this problem, but it will occur again if you export from Workspace Studio. The inconvenient workaround (aren’t all workarounds inconvenient btw):
+<ol>
+	<li>Export from Workspace Studio to Oracle Service Bus Server</li>
+	<li>If Invocation Error occurs, fix Xpath in Service Bus Console.</li>
+	<li>Export Proxy Service from Service Bus Console to sbconfig.jar</li>
+	<li>Import sbconfig.jar in Oracle Service Bus Server.</li>
+	<li>After exporting to server, the error stops happening.</li>
+</ol>

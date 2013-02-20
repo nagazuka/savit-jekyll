@@ -1,0 +1,18 @@
+---
+layout: blog
+title: BLOG // Savit Consultancy
+---
+  {% for post in site.posts %}
+			<article class="post">
+				<h2><a href="{{post.url}}" class="post-title">{{ post.title }}</a></h2>
+				<div class="meta">
+					<p>Posted on <span class="time">{{ post.date | date: "%d %B %Y" }}</span> by <a href="#" class="fn">{{site.author}}</a></p>
+				</div>
+				<div class="entry">
+					<p>{{post.content}}<p>
+				</div>
+				<footer>
+					<a href="{{post.url}}" class="more-link">Continue reading…</a>
+				</footer>
+			</article>			
+  {% endfor %}

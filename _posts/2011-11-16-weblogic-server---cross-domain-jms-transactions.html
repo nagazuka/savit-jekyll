@@ -1,0 +1,113 @@
+---
+layout: post
+title: Weblogic Server - Cross-domain JMS transactions
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '1'
+---
+&lt;Nov 15, 2011 3:55:53 PM CET&gt; &lt;Error&gt; &lt;JTA&gt; &lt;BEA-110201&gt; &lt;User [&lt;anonymous&gt;] is not authorized to invoke startRollback on a transaction branch.&gt;
+
+Weblogic cross domain security settings
+
+&nbsp;
+
+&nbsp;
+
+&nbsp;
+<table width="100%" border="0" cellspacing="6" cellpadding="0">
+<tbody>
+<tr>
+<td colspan="6" align="left" valign="TOP"><strong>WebLogic - Getting "User [] is not authorized to invoke startRollback on a transaction branch" exceptions during JTA transactions [ID 1193924.1]</strong></td>
+</tr>
+<tr>
+<td colspan="6" align="left" valign="TOP">
+
+<hr size="1/" />
+
+</td>
+</tr>
+<tr>
+<td colspan="2" valign="TOP" width="25%"></td>
+<td colspan="3" valign="TOP" nowrap="nowrap" width="50%"><em>Modified</em> 08-SEP-2010     <em>Type</em> <wbr>PROBLEM     <em>Status</em> PUBLISHED</wbr></td>
+<td valign="TOP"></td>
+</tr>
+</tbody>
+</table>
+<strong>In this Document</strong>
+<span>  <a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;doctype=PROBLEM&amp;id=1193924.1&amp;addClickInfo=%3Cdata%20search_text=%22BEA-110201%22%20search_result_size=%221%22%20search_result_count=%221%22%20powerview_id=%22%22%20on_off=%22off%22%20item_position_in_list=%221%22/%3E#SYMPTOM" target="_blank">Symptoms</a>
+<a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;doctype=PROBLEM&amp;id=1193924.1&amp;addClickInfo=%3Cdata%20search_text=%22BEA-110201%22%20search_result_size=%221%22%20search_result_count=%221%22%20powerview_id=%22%22%20on_off=%22off%22%20item_position_in_list=%221%22/%3E#CAUSE" target="_blank">Cause</a>
+<a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;doctype=PROBLEM&amp;id=1193924.1&amp;addClickInfo=%3Cdata%20search_text=%22BEA-110201%22%20search_result_size=%221%22%20search_result_count=%221%22%20powerview_id=%22%22%20on_off=%22off%22%20item_position_in_list=%221%22/%3E#FIX" target="_blank">Solution</a>
+<a href="https://support.oracle.com/CSP/main/article?cmd=show&amp;type=NOT&amp;doctype=PROBLEM&amp;id=1193924.1&amp;addClickInfo=%3Cdata%20search_text=%22BEA-110201%22%20search_result_size=%221%22%20search_result_count=%221%22%20powerview_id=%22%22%20on_off=%22off%22%20item_position_in_list=%221%22/%3E#REF" target="_blank">References</a>
+</span>
+
+<hr size="1" />
+
+&nbsp;
+
+&nbsp;
+<h2>Applies to:</h2>
+Oracle Weblogic Server - Version: 9.2 to 10.3.3
+Information in this document applies to any platform.
+This document is applicable for all versions of weblogic starting from WebLogic 9.2 on all supported platforms.
+<h2><a name="133a7c5e19abadbb_SYMPTOM"></a>Symptoms</h2>
+Issue of "User [&lt;anonymous&gt;] is not authorized to invoke startRollback on a transaction branch" JTA exceptions was reported when using JTA transactions at container level in WebLogic.
+<div>The error &lt;Error&gt; &lt;JTA&gt; &lt;testing&gt; &lt;testserver1&gt; &lt;[ACTIVE] ExecuteThread: '2' for queue: 'weblogic.kernel.Default (self-tuning)'&gt; &lt;&gt; &lt;&gt; &lt;&gt; &lt;1282575161137&gt; &lt;BEA-110201&gt; &lt;User [&lt;anonymous&gt;] is not authorized to invoke startRollback on a transaction branch.&gt;</div>
+&nbsp;
+<h2><a name="133a7c5e19abadbb_CAUSE"></a>Cause</h2>
+This JTA error usually happens in below two conditions
+
+1) When there are security related changes like changing/modifying the security trust configurations/credentials between the domains.
+
+(Or)
+
+2) Making security related changes in application for threads participating in JTA transactions for eg: security context of the thread, using runAs annotations in application code and deployment descriptors.
+<h2><a name="133a7c5e19abadbb_FIX"></a>Solution</h2>
+To resolve this issue
+
+1) Please check if there are any security related configuration issues between the domains for eg: Domain Trust configuration between two domains participating in JTA transactions.
+
+(Or)
+
+2) Check if there are any security related changes which are incorrect in application for threads participating in JTA transactions for eg: security context of the thread, using runAs annotations in application code and deployment descriptors.
+
+<strong>As work around for this issue set "Security Interoperability Mode" to "compatibility" and restart your whole domain. With "Security Interoperability Mode" set to compatibility the transaction coordinator makes calls as the kernel identity over an unsecure channel.
+</strong>
+Below is OTN documentation which has information on this.
+
+Configuring Security Interoperability Mode
+<a href="http://download.oracle.com/docs/cd/E13222_01/wls/docs100/jta/trxcon.html#wp1050329" target="_blank">http://download.oracle.com/<wbr>docs/cd/E13222_01/wls/docs100/<wbr>jta/trxcon.html#wp1050329</wbr></wbr></a>
+<h2><a name="133a7c5e19abadbb_REF"></a>References</h2>
+<a href="http://download.oracle.com/docs/cd/E13222_01/wls/docs100/jta/trxcon.html#wp1050329" target="_blank">http://download.oracle.com/<wbr>docs/cd/E13222_01/wls/docs100/<wbr>jta/trxcon.html#wp1050329</wbr></wbr></a>
+<table width="100%">
+<tbody>
+<tr>
+<td colspan="2"><img src="https://support.oracle.com/CSP/ui/images/collapse_white.png?MOS_5.4.0.1.0_GENERIC_111102.1" alt="Show Related Information" /> <strong>Related</strong>
+<div>
+
+<hr size="1/" />
+
+<strong>Products</strong>
+
+<hr size="1" />
+
+<ul>
+	<li>Middleware &gt; Application Servers &gt; Weblogic Server &gt; Oracle Weblogic Server</li>
+</ul>
+<strong>Keywords</strong>
+
+<hr size="1" />
+
+<table border="0" cellspacing="2" cellpadding="0">
+<tbody>
+<tr>
+<td valign="TOP">COMPATIBILITY; CREDENTIALS; THREADS; INTEROPERABILITY; WEBLOGIC; JTA; DOMAIN</td>
+</tr>
+</tbody>
+</table>
+</div></td>
+</tr>
+</tbody>
+</table>

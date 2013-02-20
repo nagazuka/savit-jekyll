@@ -1,0 +1,60 @@
+---
+layout: post
+title: Oracle Service Bus 10gR3 - Validating strings with XQuery regular expressions
+tags:
+- fusion middleware
+- oracle service bus
+- Oracle Service Bus
+- tips and tricks
+- validation
+- xquery
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  tumblr_nagazuka_permalink: http://nagazuka.nl/post/1255989491/osb-validate-strings-xquery-regular-expressions
+  tumblr_nagazuka_id: '1255989491'
+---
+For a project I needed to validate the name of e-mail attachments in an Oracle Service Bus Proxy Service. In a separate post I will explain how to use e-mail to trigger Proxy Services. Here’s an quick and easy way to do it with pure XQuery, using the <strong>matches</strong> <a href="http://www.w3.org/TR/xpath-functions/#func-matches">XQuery function</a>.
+
+<strong>Validate a string value with a regular expression</strong>
+
+Suppose I want to to validate a filename to against the following pattern: “yyyymmdd_important_xx.xml”. I created an XQuery file in Oracle Service Bus:
+<blockquote>xquery version “1.0” encoding “Cp1252”;
+
+declare namespace xf = “http://tempuri.org/ValidateName”;
+
+declare function xf:XqValidateName($name as xs:string)as xs:boolean {
+
+(: check whether name matches pattern :)
+
+(: ‘i’ flag is added for non-case sensitive matching :)
+
+if (matches($name,’^p{N}{8}_important_p{N}{2}.xml’, ‘i’))
+
+then (true())
+
+else (false())
+
+};
+
+declare variable $name as xs:string external;
+
+xf:XqValidateName($name)</blockquote>
+This XQuery transformation takes a xs:string as input and returns an xs:boolean, which is true if the input matches the pattern. You can use this in your Proxy Service to <em>Assign</em> the boolean to a variable and for example <em>Raise Error</em> when false.
+
+Things to note here:
+<ol>
+	<li>The p{N}{8} syntax is used to check whether 8 consecutive numbers are present. The p{N} designates the character class for all numbers, while {8} designates that you want 8 consecutive numbers. A whole range of character classes is defined, for example: all letters, all punctuation, etc. See the <a href="http://www.w3.org/TR/xmlschema-2/">XML Schema regular expression syntax</a> for all character classes, as XQuery uses the same syntax</li>
+	<li>In my case, the extension of the filename could be in uppercase or lowercase, so I added a flag ‘i’, in the last parameter of the matches function. This makes pattern matching case insensitive. More flags are available, check the <a href="http://www.w3.org/TR/xpath-functions/#flags">XQuery function documentation.  </a></li>
+	<li>I used a separate XQuery file, while I could do this inline in the XQuery expression of an Assign action. A separate transformation file is easier when using version control. If the pattern changes, nothing needs to be changed in the Proxy Service, so it can be checked in <em>and </em>released separately.</li>
+</ol>
+<strong> References</strong>
+<ul>
+	<li><a href="http://www.w3.org/TR/xpath-functions/#func-matches">http://www.w3.org/TR/xpath-functions/#func-matches</a></li>
+	<li><a href="http://www.w3.org/TR/xpath-functions/#flags">http://www.w3.org/TR/xpath-functions/#flags</a></li>
+	<li><a href="http://www.w3.org/TR/xmlschema-2/">http://www.w3.org/TR/xmlschema-2/
+</a><a href="http://www.w3.org/TR/xmlschema-2/"> </a><a href="http://xkcd.com/208/" target="_blank"><img class="alignnone size-full wp-image-49" title="regular_expressions" src="http://www.nagazuka.nl/wp-content/uploads/2011/07/regular_expressions.png" alt="Obligatory XKCD reference" width="400" height="405" /></a></li>
+</ul>
+&nbsp;

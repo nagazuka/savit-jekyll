@@ -1,0 +1,52 @@
+---
+layout: post
+title: ! 'Oracle BPM 10gR3: Tips for painless version control with SVN'
+tags:
+- 10g
+- best practice
+- fusion middleware
+- oracle bpm
+- Oracle BPM
+- subversion
+- version control
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  tumblr_nagazuka_permalink: http://nagazuka.nl/post/1691201100/oracle-bpm-and-svn-version-control
+  tumblr_nagazuka_id: '1691201100'
+---
+Any non-trivial software development should use version control <em>no matter what</em>, including Oracle BPM development. If you haven’t setup Subversion with Oracle BPM, be sure to check <a title="Enabling Subversion on Oracle BPM" href="http://kaukovuo.blogspot.com/2009/01/enabling-subversion-on-oracle-bpm.html">the excellent tutorial</a> by Harri Kaukovuo.
+
+However, using version control for Oracle BPM with Subversion can be less than straightforward. There are two important things to know about Oracle BPM and Subversion: which files to track with version control, and how to avoid conflicts when working with multiple team members.
+
+<strong>Which files and directories to include in version control?</strong>
+
+A newly created BPM process has a lot files and directories which should not all be imported into your version control system, while others are essential but easy to overlook.
+
+For instance, the &lt;project dir&gt;/build directory contains generated files, which will cause SVN conflict mayhem if you are working with multiple developers. On the other hand, the .project.xpdl file could sometimes be hidden by your file explorer, but is essential for your BPM process.
+
+The list below denotes the <strong>minimal set</strong> of files and directories in your project:
+<ul>
+	<li><span>.project.xpdl</span></li>
+	<li><span>.project</span></li>
+	<li><span>commonCatalog</span></li>
+	<li><span>componentCatalog</span></li>
+	<li><span>config</span></li>
+	<li><span>dashboards</span></li>
+	<li><span>lib</span></li>
+	<li><span>processes</span></li>
+	<li><span>resources</span></li>
+	<li><span>simulations</span></li>
+	<li><span>webRoot</span></li>
+</ul>
+<strong><span>Avoid conflicts by using the same code style (PBL vs Java)</span></strong>
+
+Oracle BPM 10gR3 offers three different syntax options to code with: PBL, Java and VisualBasic.NET. This flexibility is great for developers that are already used to those languages, but unfortunately not in combination with SVN.
+
+All method code is inlined in the XPDL file (XML) of a given process. That does not sound like a problem, were it not that the inlined code is saved in the syntax that it was last edited in. So if you have a developer that codes in PBL, and another that codes in Java, there is no separate additions to the same code can be merged through Subversion. Which is quite annoying, since merging of code changes is one of the main reasons to actually use Subversion.
+
+<span>Although updates to different code fragments will not cause direct conflicts, using different syntax than a previous developer, will screw up your abilities to easily find the differences between revisions, another big plus of version control.</span>
+
+<span>In short, <strong>stick to same syntax</strong> for all your team members working on the same BPM project. It saves a lot of pain in the long run.</span>
