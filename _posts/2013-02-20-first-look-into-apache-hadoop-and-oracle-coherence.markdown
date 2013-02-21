@@ -13,9 +13,8 @@ With all the Big Data hype buzzing around in the industry, my curiosity about it
 
 Because of my Java/Oracle background, I choose to check out two products:
 * **Apache Hadoop**: popular open-source project enabling MapReduce algorithms to be run easily on COTS hardware
-* **Oracle Coherence**: commercial data-grid product with seamless data distribution and MapReduce functionality which I have encountered at multiple Oracle-minded clients
-
-
+* **Oracle Coherence**: commercial data-grid product with seamless data distribution and MapReduce functionality which I have encountered at multiple Oracle-minded clients  
+  
 ### First thoughts on Hadoop
 
 #### General overview

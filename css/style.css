@@ -298,6 +298,8 @@ nav a, menu a { text-decoration: none; color: #555; }
 .arrow:after {content:" \27F6"; /* html unicode: &#10230; */ } 
 header .arrow {color: #999; font-style: italic;}
 .arrow:hover {color: #0078CF; }
+.post li{padding-left: 1em; margin-bottom: 0.5em;  display: block;} 
+.post li:before {content: ">"; padding-right: 1em;} 
 
 
 /* -- FOOTER
