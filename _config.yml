@@ -1,6 +1,16 @@
+# ----------------------- #
+#      Main Configs       #
+# ----------------------- #
+#
 url: http://www.savitconsultancy.co.uk
 title: Savit Consultancy // BLOG
 subtitle: High-end Enterprise Integration 
 author: Shanny Anoep
 simple_search: http://google.com/search
 description:
+
+# ----------------------- #
+#    Jekyll & Plugins     #
+# ----------------------- #
+
+markdown: rdiscount

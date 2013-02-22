@@ -66,7 +66,8 @@ sub, sup{font-size:75%; line-height:0; position:relative; vertical-align:baselin
 sup{top:-0.5em}
 sub{bottom:-0.25em}
 dd{margin:0 0 0 40px} dt{font-weight: 700;}
-ul, ol{list-style:none; list-style-image:none; margin:0; padding:0;}
+ul {list-style:none; list-style-image:none; margin:0; padding:0;}
+ol{list-style-image:none; margin:0; padding:0;}
 img{border:0; -ms-interpolation-mode:bicubic; vertical-align:middle}
 svg:not(:root){overflow:hidden}
 figure{margin:0}
@@ -298,8 +299,8 @@ nav a, menu a { text-decoration: none; color: #555; }
 .arrow:after {content:" \27F6"; /* html unicode: &#10230; */ } 
 header .arrow {color: #999; font-style: italic;}
 .arrow:hover {color: #0078CF; }
-.post li{padding-left: 1em; margin-bottom: 0.5em;  display: block;} 
-.post li:before {content: ">"; padding-right: 1em;} 
+.post ul>li{padding-left: 1em; margin-bottom: 0.5em;  display: block;} 
+.post ul>li:before {content: ">"; padding-right: 1em;} 
 
 
 /* -- FOOTER
